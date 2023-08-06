@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Contact() {
   const [fromAddress, setFromAddress] = useState('');
@@ -12,7 +13,32 @@ export default function Contact() {
       subject: subject,
       message: message,
     });
-    console.log(result);
+    if (result.status === 200) {
+      toast.success('Email Sent Successfully 📧', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      setFromAddress('');
+      setSubject('');
+      setMessage('');
+    } else {
+      toast.error('Oops, an error occured', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
   };
 
   return (
@@ -26,7 +52,8 @@ export default function Contact() {
         </p>
         <form
           action="#"
-          onSubmit={() => {
+          onSubmit={e => {
+            e.preventDefault();
             sendMessage();
           }}
           className="space-y-8">
@@ -91,6 +118,18 @@ export default function Contact() {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="colored"
+      />
     </section>
   );
 }
