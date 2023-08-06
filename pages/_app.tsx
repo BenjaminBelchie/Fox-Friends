@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
       <Head>
         <title>Anna's Crochet</title>
       </Head>
-      <main className={`${montserrat.variable} font-sans`}>
+      <main className={`${montserrat.variable} font-sans h-screen`}>
         <Component {...pageProps} />
       </main>
     </>

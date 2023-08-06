@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import Contact from '../components/Contact';
 import Gallary from '../components/Gallary';
 import { Product } from '../types/Product';
+import Nav from '../components/Nav';
 
 export async function getStaticProps() {
   const testData: Product[] = [
@@ -57,6 +58,7 @@ export async function getStaticProps() {
 export default function Homepage({ data }) {
   return (
     <>
+      <Nav />
       <Header />
       <Gallary data={data} />
       <Contact />
