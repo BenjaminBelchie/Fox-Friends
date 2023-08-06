@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import getProducts from '../../sfcc.js';
+import { Product } from '../../types/Product';
 
 export default function Product({ product }) {
   return (
@@ -9,7 +9,7 @@ export default function Product({ product }) {
           <Image
             alt="coffee"
             className="rounded-lg"
-            src={product.imageGroups[0].images[0].link}
+            src={product.image}
             width={560}
             height={640}
           />
@@ -18,7 +18,7 @@ export default function Product({ product }) {
               {product.name}
             </h1>
             <h1 className="mt-3 text-4xl font-bold text-gray-500 sm:text-3xl sm:tracking-tight lg:text-3xl">
-              ${product.price}
+              £{product.price}
             </h1>
             <div className="mt-10 mb-5 border-t border-gray-200 pt-10 font-bold">
               Description
@@ -32,23 +32,24 @@ export default function Product({ product }) {
 }
 
 export async function getStaticProps({ params }) {
-  const searchResults = await getProducts(params.slug);
-  const coffeeProduct = searchResults[0];
-
+  const product: Product = {
+    id: 1,
+    image: '/test.png',
+    link: 'https://www.etsy.com/uk',
+    name: 'Test product',
+    price: '50',
+    shortDescription: 'This is a test product to show the elements on screen.',
+    longDescription: `Introducing our adorable Handmade Crochet Cow - the perfect cuddly companion for children and animal lovers of all ages! Crafted with love and care, this unique and whimsical creation is sure to capture hearts and bring smiles to faces. Each crochet cow is meticulously handcrafted by skilled artisans using soft and premium quality yarn, ensuring a plush and huggable texture that is gentle to the touch. The attention to detail is evident in every stitch, from the charming embroidered eyes to the cute little tail, making it a truly one-of-a-kind piece.`,
+  };
   return {
     props: {
-      product: coffeeProduct,
+      product: product,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const coffeeProducts = await getProducts('coffee');
   let fullPaths = [];
-
-  for (let product of coffeeProducts) {
-    fullPaths.push({ params: { slug: product.id } });
-  }
 
   return {
     paths: fullPaths,
