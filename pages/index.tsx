@@ -58,7 +58,6 @@ export async function getStaticProps() {
 export default function Homepage({ data }) {
   return (
     <>
-      <Nav />
       <Header />
       <Gallary data={data} />
       <Contact />
