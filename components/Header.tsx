@@ -25,7 +25,7 @@ export default function Header() {
             </p> */}
             <h1 className="mt-1 text-center font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-7xl">
               <span className="block text-white">Life is better with</span>
-              <span className="block text-cyan-500">Crochet</span>
+              <span className="block text-cyan-500">Friends</span>
             </h1>
 
             <div className="mx-auto mt-10 max-w-xs sm:flex sm:max-w-none sm:justify-center">
