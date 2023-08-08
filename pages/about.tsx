@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function AboutPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
@@ -10,11 +12,11 @@ export default function AboutPage() {
 
       <div className="flex flex-col gap-7 items-center w-full pt-6 md:items-start md:flex-row">
         <div className="flex flex-col gap-4">
-          <img
+          <Image
             className="w-70 h-70 rounded-md"
             height={350}
             width={350}
-            src="/avatar.png"
+            src="/about-photo.png"
             alt="Rounded avatar"
           />
           <div className="flex gap-2 justify-center">
