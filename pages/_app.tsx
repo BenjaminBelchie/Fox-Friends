@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 import { Montserrat } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import Nav from '../components/Nav';
 
 const montserrat = Montserrat({
@@ -18,6 +19,7 @@ export default function MyApp({ Component, pageProps }) {
       <main className={`${montserrat.variable} font-sans h-screen`}>
         <Nav />
         <Component {...pageProps} />
+        <Analytics />
       </main>
     </>
   );
