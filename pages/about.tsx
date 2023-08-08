@@ -16,7 +16,7 @@ export default function AboutPage() {
             className="w-70 h-70 rounded-md"
             height={350}
             width={350}
-            src="/avatar.png"
+            src="/about-photo.png"
             alt="Rounded avatar"
           />
           <div className="flex gap-2 justify-center">
