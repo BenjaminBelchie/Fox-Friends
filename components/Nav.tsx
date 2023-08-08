@@ -60,17 +60,6 @@ export default function Nav() {
               </li>
               <li>
                 <Link
-                  href="/about"
-                  className={`block py-2 pl-3 pr-4 ${
-                    router.pathname === '/about'
-                      ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
-                      : 'text-gray-900'
-                  } rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/products"
                   className={`block py-2 pl-3 pr-4 ${
                     router.pathname === '/products'
@@ -78,6 +67,17 @@ export default function Nav() {
                       : 'text-gray-900'
                   } rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
                   Products
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className={`block py-2 pl-3 pr-4 ${
+                    router.pathname === '/about'
+                      ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
+                      : 'text-gray-900'
+                  } rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
+                  About
                 </Link>
               </li>
               <li>
