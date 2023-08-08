@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Anna's Crochet</title>
+        <title>Fox & Friends</title>
       </Head>
       <main className={`${montserrat.variable} font-sans h-screen`}>
         <Nav />
