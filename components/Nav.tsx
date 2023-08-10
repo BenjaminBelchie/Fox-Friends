@@ -12,7 +12,7 @@ export default function Nav() {
         <div className="max-w-screen-xl w-full flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/favicon.ico" className="h-8 mr-3" alt="Flowbite Logo" />
+            <img src="/logo.png" className="h-8 mr-3" alt="Flowbite Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap ">
               Fox & Friends
             </span>
