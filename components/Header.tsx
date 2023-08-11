@@ -24,14 +24,16 @@ export default function Header() {
               The Coffee House
             </p> */}
             <h1 className="mt-1 text-center font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-7xl">
-              <span className="block text-white">Life is better with</span>
-              <span className="block text-cyan-500">Friends</span>
+              <span className="block text-white">Artisanal Crochet Goods</span>
+              <span className="block text-green-200 md:text-5xl">
+                Handmade to Order in the UK
+              </span>
             </h1>
 
             <div className="mx-auto mt-10 max-w-xs sm:flex sm:max-w-none sm:justify-center">
               <Link
                 href="/products"
-                className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-cyan-600 shadow-sm hover:bg-cyan-100 sm:px-8">
+                className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-[#264F4A] shadow-sm hover:bg-emerald-50 sm:px-8">
                 See Products
               </Link>
             </div>

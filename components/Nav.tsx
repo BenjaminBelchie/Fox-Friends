@@ -8,12 +8,12 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 flex">
+      <nav className="bg-[#264F4A] border-gray-200 flex">
         <div className="max-w-screen-xl w-full flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center">
             <img src="/logo.png" className="h-8 mr-3" alt="Flowbite Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap ">
+            <span className="self-center text-2xl text-[#FAFAFA] font-semibold whitespace-nowrap ">
               Fox & Friends
             </span>
           </Link>
@@ -24,7 +24,7 @@ export default function Nav() {
             onClick={() => {
               setNavOpen(!navOpen);
             }}
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-[#FAFAFA] rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
             aria-controls="navbar-default"
             aria-expanded="false">
             <span className="sr-only">Open main menu</span>
@@ -46,14 +46,14 @@ export default function Nav() {
           <div
             className={`${navOpen ? '' : 'hidden'} w-full md:block md:w-auto`}
             id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-[#264F4A]">
               <li>
                 <Link
                   href="/"
                   className={`block py-2 pl-3 pr-4  ${
                     router.pathname === '/'
                       ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
-                      : 'text-gray-900'
+                      : 'text-[#FAFAFA]'
                   } rounded md:bg-transparent  md:p-0`}>
                   Home
                 </Link>
@@ -64,7 +64,7 @@ export default function Nav() {
                   className={`block py-2 pl-3 pr-4 ${
                     router.pathname === '/products'
                       ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
-                      : 'text-gray-900'
+                      : 'text-[#FAFAFA]'
                   } rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
                   Products
                 </Link>
@@ -75,7 +75,7 @@ export default function Nav() {
                   className={`block py-2 pl-3 pr-4 ${
                     router.pathname === '/about'
                       ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
-                      : 'text-gray-900'
+                      : 'text-[#FAFAFA]'
                   } rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
                   About
                 </Link>
@@ -86,7 +86,7 @@ export default function Nav() {
                   className={`block py-2 pl-3 pr-4 ${
                     router.pathname === '/contact'
                       ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
-                      : 'text-gray-900'
+                      : 'text-[#FAFAFA]'
                   } rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
                   Contact
                 </Link>
@@ -97,7 +97,7 @@ export default function Nav() {
                   className={`block py-2 pl-3 pr-4 ${
                     router.pathname === '/cart'
                       ? 'text-white bg-cyan-700 md:text-cyan-700 md:bg-transparent'
-                      : 'text-gray-900'
+                      : 'text-[#FAFAFA]'
                   } rounded hover:bg-gray-100 md:hidden md:hover:bg-transparent md:border-0 md:hover:text-cyan-700 md:p-0`}>
                   Cart
                 </Link>
@@ -112,7 +112,7 @@ export default function Nav() {
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
-              stroke="currentColor"
+              stroke="#FAFAFA"
               className="w-6 h-6">
               <path
                 strokeLinecap="round"
