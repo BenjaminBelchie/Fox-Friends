@@ -1,34 +1,24 @@
 import Gallary from '../../components/Gallary';
-import { Product } from '../../types/Product';
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import {
-  ChevronDownIcon,
-  FunnelIcon,
-  Squares2X2Icon,
-} from '@heroicons/react/20/solid';
+import { ChevronDownIcon, FunnelIcon } from '@heroicons/react/20/solid';
 import { sortOptions } from '../../constants';
 import MobileFilters from '../../components/ProductFilters/MobileFilters';
 import Filters from '../../components/ProductFilters/Filters';
+import { prisma } from '../../prisma/prisma';
+import { createFlatProductsObjectArray } from '../../util/createFlatProductObject';
+import lottieJson from '../../constants/not-found-animation.json';
+import { InferGetServerSidePropsType } from 'next';
+import Lottie from 'react-lottie-player';
 
-export async function getStaticProps() {
-  const testData: Product[] = [];
-
-  for (let i = 0; i < 12; i++) {
-    testData.push({
-      id: i,
-      image: '/test.png',
-      link: 'https://www.etsy.com/uk',
-      name: 'Test product',
-      price: '50',
-      shortDescription:
-        'This is a test product to show the elements on screen.',
-      longDescription: 'This is a test product',
-    });
-  }
+export async function getServerSideProps() {
+  const products = await prisma.product.findMany({
+    include: { tags: { include: { tag: true } }, images: true },
+  });
+  const flatProducts = createFlatProductsObjectArray(products);
   return {
     props: {
-      data: testData,
+      data: flatProducts,
     },
   };
 }
@@ -37,7 +27,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function ProductsPage({ data }) {
+export default function ProductsPage({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -119,9 +111,21 @@ export default function ProductsPage({ data }) {
               <Filters />
 
               {/* Product grid */}
-              <div className="lg:col-span-3">
-                <Gallary data={data} />
-              </div>
+              {data && data.length > 0 ? (
+                <div className="lg:col-span-3">
+                  <Gallary data={data} />
+                </div>
+              ) : (
+                <div className="flex flex-col items-center lg:col-span-3">
+                  <Lottie
+                    loop
+                    animationData={lottieJson}
+                    play
+                    style={{ width: 400, height: 400 }}
+                  />
+                  <p className="font-medium">No products here</p>
+                </div>
+              )}
             </div>
           </section>
         </main>

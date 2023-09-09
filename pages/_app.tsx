@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/embla.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 import { Montserrat } from 'next/font/google';
