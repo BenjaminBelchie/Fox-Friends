@@ -70,6 +70,13 @@ model ProductCategories {
   status   Status
 }
 
+model AboutMeDetails {
+  id          Int    @id @default(autoincrement())
+  titleText   String
+  description String
+  image       String
+}
+
 enum Status {
   ACTIVE
   ARCHIVED
