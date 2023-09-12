@@ -16,9 +16,21 @@ export async function getServerSideProps() {
     include: { tags: { include: { tag: true } }, images: true },
   });
   const flatProducts = createFlatProductsObjectArray(products);
+
+  const filters = await prisma.productFilters.findMany({
+    where: { staus: 'ACTIVE' },
+    include: { ProductFilterValues: true },
+  });
+
+  const categories = await prisma.productCategories.findMany({
+    where: { status: 'ACTIVE' },
+  });
+
   return {
     props: {
       data: flatProducts,
+      filters: filters,
+      categories: categories,
     },
   };
 }
@@ -29,6 +41,8 @@ function classNames(...classes) {
 
 export default function ProductsPage({
   data,
+  filters,
+  categories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -38,6 +52,8 @@ export default function ProductsPage({
         {/* Mobile filter dialog */}
         <MobileFilters
           mobileFiltersOpen={mobileFiltersOpen}
+          filters={filters}
+          categories={categories}
           setMobileFiltersOpen={setMobileFiltersOpen}
         />
 
@@ -69,19 +85,16 @@ export default function ProductsPage({
                   leaveTo="transform opacity-0 scale-95">
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map(option => (
-                        <Menu.Item key={option.name}>
+                      {categories.map(option => (
+                        <Menu.Item key={option.category}>
                           {({ active }) => (
                             <a
-                              href={option.href}
+                              href={`#${option.category}`}
                               className={classNames(
-                                option.current
-                                  ? 'font-medium text-gray-900'
-                                  : 'text-gray-500',
                                 active ? 'bg-gray-100' : '',
                                 'block px-4 py-2 text-sm',
                               )}>
-                              {option.name}
+                              {option.category}
                             </a>
                           )}
                         </Menu.Item>
@@ -108,7 +121,7 @@ export default function ProductsPage({
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <Filters />
+              <Filters filters={filters} categories={categories} />
 
               {/* Product grid */}
               {data && data.length > 0 ? (
