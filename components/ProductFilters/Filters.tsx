@@ -1,17 +1,25 @@
 import { Disclosure } from '@headlessui/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
-import { filters, subCategories } from '../../constants';
+import { subCategories } from '../../constants';
+import { Prisma, ProductCategories } from '@prisma/client';
 
-export default function Filters() {
+type Props = {
+  filters: Prisma.ProductFiltersGetPayload<{
+    include: { ProductFilterValues: true };
+  }>[];
+  categories: ProductCategories[];
+};
+
+export default function Filters({ filters, categories }: Props) {
   return (
     <form className="hidden lg:block">
       <h3 className="sr-only">Categories</h3>
       <ul
         role="list"
         className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-        {subCategories.map(category => (
-          <li key={category.name}>
-            <a href={category.href}>{category.name}</a>
+        {categories.map(category => (
+          <li key={category.category}>
+            <a href={`#${category.category}`}>{category.category}</a>
           </li>
         ))}
       </ul>
@@ -26,7 +34,7 @@ export default function Filters() {
               <h3 className="-my-3 flow-root">
                 <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                   <span className="font-medium text-gray-900">
-                    {section.name}
+                    {section.filterType}
                   </span>
                   <span className="ml-6 flex items-center">
                     {open ? (
@@ -39,20 +47,20 @@ export default function Filters() {
               </h3>
               <Disclosure.Panel className="pt-6">
                 <div className="space-y-4">
-                  {section.options.map((option, optionIdx) => (
+                  {section.ProductFilterValues.map((option, optionIdx) => (
                     <div key={option.value} className="flex items-center">
                       <input
                         id={`filter-${section.id}-${optionIdx}`}
                         name={`${section.id}[]`}
                         defaultValue={option.value}
                         type="checkbox"
-                        defaultChecked={option.checked}
+                        defaultChecked={false}
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                       />
                       <label
                         htmlFor={`filter-${section.id}-${optionIdx}`}
                         className="ml-3 text-sm text-gray-600">
-                        {option.label}
+                        {option.value}
                       </label>
                     </div>
                   ))}
