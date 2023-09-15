@@ -1,65 +1,84 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
-    id String @id @default(uuid()) @db.Uuid
-    title String
-    shortDescription String
-    longDescription String
-    price String
-    status Status
-    tags ProductTags[]
-    images ProductImages[]
-    isFeatured Boolean @default(false)
-    featuredIndex Int?
-    createdAt DateTime @default(now())
+  id               String          @id @default(uuid()) @db.Uuid
+  title            String
+  shortDescription String
+  longDescription  String
+  price            String
+  status           Status
+  createdAt        DateTime        @default(now())
+  isFeatured       Boolean         @default(false)
+  featuredIndex    Int?
+  images           ProductImages[]
+  tags             ProductTags[]
 }
 
 model ProductImages {
-    id String @id @default(uuid()) @db.Uuid
-    image String
-    isPrimaryImage Boolean @default(false)
-    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-    productId String @db.Uuid
-
+  id             String  @id @default(uuid()) @db.Uuid
+  image          String
+  productId      String  @db.Uuid
+  isPrimaryImage Boolean @default(false)
+  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductTags {
-    id String @id @default(uuid()) @db.Uuid
-    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-    productId String @db.Uuid
-    tag Tag @relation(fields: [tagId], references: [id], onDelete: Cascade)
-    tagId String @db.Uuid
+  id        String  @id @default(uuid()) @db.Uuid
+  productId String  @db.Uuid
+  tagId     String  @db.Uuid
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model Tag {
-    id String @id @default(uuid()) @db.Uuid
-    tagName String
-    products ProductTags[]
+  id       String        @id @default(uuid()) @db.Uuid
+  tagName  String
+  products ProductTags[]
 }
 
 model SiteConfig {
-    id Int @id @default(autoincrement())
-    heroImage String @default("hero.jpg")
-    primaryHeroText String
-    secondaryHeroText String
+  heroImage         String @default("hero.jpg")
+  primaryHeroText   String
+  secondaryHeroText String
+  id                Int    @id @default(autoincrement())
+}
+
+model ProductFilterValues {
+  id              String         @id @db.Uuid
+  value           String
+  productFilterId String         @db.Uuid
+  ProductFilters  ProductFilters @relation(fields: [productFilterId], references: [id], onDelete: Cascade)
+}
+
+model ProductFilters {
+  id                  String                @id @db.Uuid
+  filterType          String
+  staus               Status                @default(DRAFT)
+  ProductFilterValues ProductFilterValues[]
+}
+
+model ProductCategories {
+  id       String @id @db.Uuid
+  category String
+  status   Status
+}
+
+model AboutMeDetails {
+  id          Int    @id @default(autoincrement())
+  titleText   String
+  description String
+  image       String
 }
 
 enum Status {
-    ACTIVE
-    ARCHIVED
-    DRAFT
+  ACTIVE
+  ARCHIVED
+  DRAFT
 }

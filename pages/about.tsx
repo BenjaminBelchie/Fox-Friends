@@ -1,6 +1,20 @@
 import Image from 'next/image';
+import { prisma } from '../prisma/prisma';
+import { InferGetServerSidePropsType } from 'next';
+import { supabaseProductImagePrefix } from '../util/imagePrefix';
 
-export default function AboutPage() {
+export async function getServerSideProps() {
+  const aboutMeData = await prisma.aboutMeDetails.findFirst();
+  return {
+    props: {
+      aboutMeData: aboutMeData,
+    },
+  };
+}
+
+export default function AboutPage({
+  aboutMeData,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
       {/* Title */}
@@ -16,7 +30,7 @@ export default function AboutPage() {
             className="w-70 h-70 rounded-md"
             height={350}
             width={350}
-            src="/about-photo.png"
+            src={supabaseProductImagePrefix + aboutMeData.image}
             alt="Rounded avatar"
           />
           <div className="flex gap-2 justify-center">
@@ -33,21 +47,9 @@ export default function AboutPage() {
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-3xl font-bold tracking-tight text-gray-900">
-            Hi, I'm Anna
+            {aboutMeData.titleText}
           </p>
-          <p className="max-w-2xl">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-            aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-            imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-            mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-            semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-            porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem
-            ante, dapibus in, viverra quis, feugiat a, tellus.
-          </p>
+          <p className="max-w-2xl">{aboutMeData.description}</p>
         </div>
       </div>
     </main>
